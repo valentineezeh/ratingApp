@@ -5,6 +5,7 @@ import Sequelize from 'sequelize';
 const basename = path.basename(module.filename);
 const env = process.env.NODE_ENV || 'development';
 const config = require('../config/config.json')[env];
+
 const db = {};
 let sequelize;
 
