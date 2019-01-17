@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
     star: {
       type: DataTypes.ENUM,
       allowNull: false,
-      values: [1, 2, 3, 4, 5],
+      values: [0, 1, 2, 3, 4, 5],
       validate: {
         notEmpty: { msg: 'Empty field is not allowed' }
       }

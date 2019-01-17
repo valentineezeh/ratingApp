@@ -9,6 +9,12 @@ class RatingContaoller {
     const branch = req.body.Branch.trim().toLowerCase();
     const star = req.body.Star.trim().toLowerCase();
 
+    if( star > 5){
+      return res.status(400).json({
+        status: false,
+        message: 'Star rating value can only be input value from 0 to 5'
+      });
+    }
     rating.create({
       region: Region,
       branch,
