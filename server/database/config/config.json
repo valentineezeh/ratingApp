@@ -1,23 +1,13 @@
 {
-  "development": {
-    "username": "postgres",
-    "password": "Sagemode2",
-    "database": "ratingapp",
-    "host": "127.0.0.1",
+  "production": {
+    "use_env_variable": "DATABASE_URL",
     "dialect": "postgres"
   },
-  "test": {
-    "username": "root",
-    "password": null,
-    "database": "database_test",
-    "host": "127.0.0.1",
-    "dialect": "mpostgres"
-  },
-  "production": {
-    "username": "root",
-    "password": null,
-    "database": "database_production",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
+  "development": {
+    "database": "ratingapp",
+    "password": "Sagemode2",
+    "dialect": "postgres",
+    "username": "postgres",
+    "host": "127.0.0.1"
   }
 }

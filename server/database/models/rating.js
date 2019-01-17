@@ -12,14 +12,15 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
       validate: { 
-        notEmpty: { msg: 'Empty text not allowed' }
+        notEmpty: { msg: 'Empty field is not allowed' }
       }
     },
     star: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.ENUM,
       allowNull: false,
+      values: [1, 2, 3, 4, 5],
       validate: {
-        notEmpty: { msg: 'Empty strings not allowed' }
+        notEmpty: { msg: 'Empty field is not allowed' }
       }
     },
     comment: {
