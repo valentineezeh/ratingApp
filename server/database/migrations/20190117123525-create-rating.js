@@ -17,7 +17,8 @@ module.exports = {
         allowNull: false,
       },
       star: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.ENUM,
+        values: [0, 1, 2, 3, 4, 5],
         allowNull: false,
       },
       comment: {

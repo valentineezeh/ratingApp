@@ -36,13 +36,6 @@ class UserInputValidation{
         message: errors
       });
     }
-    if (req.body.Branch.length < 1) {
-      errors.push('Number must start from 1 upwards.');
-      return res.status(400).send({
-        status: 'Error',
-        message: errors
-      });
-    }
     if (req.body.Star == undefined) {
       errors.push('Valid Value is required...');
       return res.status(400).send({
@@ -54,13 +47,6 @@ class UserInputValidation{
       errors.push('Pricee cannot be empty');
       return res.status(400).send({
         status: 'Error',
-        message: errors
-      });
-    }
-    if (req.body.Star.length < 1 ) {
-      errors.push('Star value must be greater than 0..');
-      return res.status(400).send({
-        status: 'Errors',
         message: errors
       });
     }
