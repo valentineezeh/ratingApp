@@ -7,11 +7,16 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start:dev": "nodemon ./server/app.js --exec babel-node",
     "start": "node dist/app.js",
+    "postinstall": "npm run build:prod",
     "clean:dist": "rimraf ./dist",
     "build:prod": "npm run clean:dist && babel ./server --out-dir dist --copy-files",
     "coveralls": "nyc --reporter=lcov --reporter=text-lcov npm test",
     "undo:migrations": "node_modules/.bin/sequelize db:migrate:undo:all",
+    "heroku-postbuild": "npm run build:prod",
     "migrations": "node_modules/.bin/sequelize db:migrate"
+  },
+  "engines": {
+    "node": "10.4.1"
   },
   "repository": {
     "type": "git",
