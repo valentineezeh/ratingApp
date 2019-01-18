@@ -1,4 +1,4 @@
-import { average } from 'average-rating';
+import average from 'average';
 import db from '../database/models';
 
 const rating = db.Rating;
@@ -83,6 +83,7 @@ class RatingContaoller {
           });
         }
       }).catch((error) => {
+        console.log('----->>>', error.message);
         return res.status(500).json(error.message);
       });
     } else {
@@ -132,7 +133,7 @@ class RatingContaoller {
         const region = req.params.region;
         regionRating.filter((ratings) => {
           if(ratings.region == region ){
-            regionRatingList.push(ratings.star);
+            regionRatingList.push(parseInt(ratings.star));
           }
         });
         if(regionRatingList.length == 0){
