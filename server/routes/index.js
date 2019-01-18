@@ -8,6 +8,8 @@ router.post('/rating', UserInputValidation.userInput, RatingController.createRat
 
 router.get('/rating', RatingController.getAllRating);
 
+router.get('/rating/branches/:branchId', RatingController.getSingleBranch);
+
 // catch all invalid routes
 router.get('*', (req, res) => res.status(404).json({
   message: 'Invalid Route'
