@@ -1,3 +1,4 @@
+import { average } from 'average-rating';
 import db from '../database/models';
 
 const rating = db.Rating;
@@ -66,7 +67,6 @@ class RatingContaoller {
         }
       }).then(regionRating => {
         const {region} = req.query;
-        //console.log('my-region', region);
         regionRating.filter((ratingsRegion => {
           if(ratingsRegion.region === region){
             regionRatingList.push(ratingsRegion.star);
@@ -92,6 +92,34 @@ class RatingContaoller {
           return res.status(200).json(allRating);
         });
     }
+  }
+  static getSingleBranch (req, res) {
+    let branchRatingList = [];
+    rating
+      .findAll({
+        where: {
+          branch: parseInt(req.params.branchId)
+        }
+      })
+      .then(branchRating => {
+        const branch = parseInt(req.params.branchId);
+        branchRating.filter((ratings) => {
+          if ( ratings.branch === branch){
+            branchRatingList.push(parseInt(ratings.star));
+          }
+        });
+        if (branchRatingList.length == 0){
+          return res.status(404).json({
+            message: 'branch not found'
+          });
+        }else{
+          return res.status(200).json({
+            branch_Id: branch,
+            Average_rating: average(branchRatingList)
+          });
+        }
+        
+      });
   }
 }
 
