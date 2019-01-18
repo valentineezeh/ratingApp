@@ -119,7 +119,33 @@ class RatingContaoller {
           });
         }
         
-      });
+      }).catch(error => res.status(500).json(error.message));
+  }
+  static getSingleRegion (req, res) {
+    let regionRatingList = [];
+    rating
+      .findAll({
+        where: {
+          region: req.params.region
+        }
+      }).then(regionRating => {
+        const region = req.params.region;
+        regionRating.filter((ratings) => {
+          if(ratings.region == region ){
+            regionRatingList.push(ratings.star);
+          }
+        });
+        if(regionRatingList.length == 0){
+          return res.status(404).json({
+            message: 'region not found'
+          });
+        }else{
+          return res.status(200).json({
+            region: region,
+            Average_rating: average(regionRatingList)
+          });
+        }
+      }).catch( error => res.status(500).json(error.message));
   }
 }
 

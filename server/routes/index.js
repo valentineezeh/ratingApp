@@ -10,6 +10,8 @@ router.get('/rating', RatingController.getAllRating);
 
 router.get('/rating/branches/:branchId', RatingController.getSingleBranch);
 
+router.get('/rating/regions/:region', RatingController.getSingleRegion);
+
 // catch all invalid routes
 router.get('*', (req, res) => res.status(404).json({
   message: 'Invalid Route'
