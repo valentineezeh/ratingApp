@@ -30,6 +30,69 @@ class RatingContaoller {
       return res.status(500).json(error.message);
     });
   }
+  static getAllRating(req, res){
+    if(req.query.branch !== null && req.query.region == null){
+      const branchRatingList = [];
+      rating.findAll({
+        where: {
+          branch: parseInt(req.query.branch)
+        }
+      }).then(branchRating => {
+        const branch  = parseInt(req.query.branch);
+        branchRating.filter((ratings) => {
+          if (ratings.branch === branch){
+            branchRatingList.push(ratings.star);
+          }
+        });
+        if (branchRatingList.length == 0){
+          return res.status(404).json({
+            message: 'branch not found'
+          });
+        }else{
+          return res.status(200).json({
+            branchId: branch,
+            ratings: branchRatingList
+          });
+        }
+      }).catch((error) => {
+        res.status(500).json(error.message);
+      }
+      );
+    } if(req.query.region !== null && req.query.branch == null){
+      const regionRatingList = [];
+      rating.findAll({
+        where: {
+          region: req.query.region
+        }
+      }).then(regionRating => {
+        const {region} = req.query;
+        //console.log('my-region', region);
+        regionRating.filter((ratingsRegion => {
+          if(ratingsRegion.region === region){
+            regionRatingList.push(ratingsRegion.star);
+          }
+        }));
+        if(regionRatingList.length == 0){
+          return res.status(404).json({
+            message: 'region is not found'
+          });
+        }else {
+          return res.status(200).json({
+            region: region,
+            ratings: regionRatingList
+          });
+        }
+      }).catch((error) => {
+        return res.status(500).json(error.message);
+      });
+    } else {
+      rating
+        .all()
+        .then((allRating) => {
+          return res.status(200).json(allRating);
+        });
+    }
+  }
 }
 
 export default RatingContaoller;
