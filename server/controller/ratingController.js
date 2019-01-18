@@ -1,9 +1,9 @@
-import { average } from 'average-rating';
+import average from 'average';
 import db from '../database/models';
 
 const rating = db.Rating;
 
-class RatingContaoller {
+class RatingController {
   static createRating(req, res) {
     const { Region, Comment } = req.body;
 
@@ -31,7 +31,18 @@ class RatingContaoller {
       return res.status(500).json(error.message);
     });
   }
+
   static getAllRating(req, res){
+    if (req.query.region == null && req.query.branch == null) {
+      rating
+        .all()
+        .then((allRating) => {
+          return res.status(200).json(allRating);
+        }).catch( error => {
+          return res.status(400).json(error.message);
+        });
+    }
+
     if(req.query.branch !== null && req.query.region == null){
       const branchRatingList = [];
       rating.findAll({
@@ -85,13 +96,7 @@ class RatingContaoller {
       }).catch((error) => {
         return res.status(500).json(error.message);
       });
-    } else {
-      rating
-        .all()
-        .then((allRating) => {
-          return res.status(200).json(allRating);
-        });
-    }
+    } 
   }
   static getSingleBranch (req, res) {
     let branchRatingList = [];
@@ -132,7 +137,7 @@ class RatingContaoller {
         const region = req.params.region;
         regionRating.filter((ratings) => {
           if(ratings.region == region ){
-            regionRatingList.push(ratings.star);
+            regionRatingList.push(parseInt(ratings.star));
           }
         });
         if(regionRatingList.length == 0){
@@ -149,4 +154,4 @@ class RatingContaoller {
   }
 }
 
-export default RatingContaoller;
+export default RatingController;

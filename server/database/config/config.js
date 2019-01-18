@@ -4,10 +4,10 @@ dotenv.config();
 
 const config = {
   development: {
-    database: 'DATABASENAME',
-    password: 'DBPASSWORD',
+    username: 'postgres',
+    database: process.env.DATABASENAME,
+    password: process.env.DBPASSWORD,
     host: '127.0.0.1',
-    port: '54320',
     dialect: 'postgres'
   },
   production: {
